@@ -410,10 +410,10 @@ if ($x % 7 != 0) { // Padding
 			</tr>
 		</table>
 		<div class="submit ft_submit">
-		<span style="float: left;"><!--
-			--><?=number_format($RealNumResults)?> Results
-			<?=!check_perms('site_search_many') ? "(Showing first $NumResults matches)" : ""?>
-		</span>
+			<span style="float: left;"><!--
+				--><?=number_format($RealNumResults)?> Results
+				<?=!check_perms('site_search_many') ? "(Showing first $NumResults matches)" : ""?>
+			</span>
 			<input type="submit" value="Filter torrents" />
 			<input type="hidden" name="action" id="ft_type" value="<?=($AdvancedSearch ? 'advanced' : 'basic')?>" />
 			<input type="hidden" name="searchsubmit" value="1" />
