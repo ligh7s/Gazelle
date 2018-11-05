@@ -116,6 +116,7 @@ $Groups = $Search->get_groups();
 $NumResults = $Search->record_count();
 
 if (!check_perms('site_search_many')) {
+    $RealNumResults = $NumResults;
     $NumResults = min($NumResults, SPHINX_MAX_MATCHES);
 }
 
@@ -410,7 +411,7 @@ if ($x % 7 != 0) { // Padding
 		</table>
 		<div class="submit ft_submit">
             <span style="float: left;"><!--
-             --><?=number_format($NumResults)?> Results
+             --><?=number_format($RealNumResults)?> Results
                 <?=!check_perms('site_search_many') ? "(Showing first $NumResults matches)" : ""?>
             </span>
 			<input type="submit" value="Filter torrents" />
