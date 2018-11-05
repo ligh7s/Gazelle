@@ -115,6 +115,10 @@ $Results = $Search->query($_GET);
 $Groups = $Search->get_groups();
 $NumResults = $Search->record_count();
 
+if (!check_perms('site_search_many')) {
+    $NumResults = min($NumResults, SPHINX_MAX_MATCHES);
+}
+
 $HideFilter = isset($LoggedUser['ShowTorFilter']) && $LoggedUser['ShowTorFilter'] == 0;
 // This is kinda ugly, but the enormous if paragraph was really hard to read
 $AdvancedSearch = !empty($_GET['action']) && $_GET['action'] == 'advanced';
@@ -405,7 +409,10 @@ if ($x % 7 != 0) { // Padding
 			</tr>
 		</table>
 		<div class="submit ft_submit">
-			<span style="float: left;"><?=number_format($NumResults)?> Results</span>
+            <span style="float: left;"><!--
+             --><?=number_format($NumResults)?> Results
+                <?=!check_perms('site_search_many') ? "(Showing first $NumResults matches)" : ""?>
+            </span>
 			<input type="submit" value="Filter torrents" />
 			<input type="hidden" name="action" id="ft_type" value="<?=($AdvancedSearch ? 'advanced' : 'basic')?>" />
 			<input type="hidden" name="searchsubmit" value="1" />
